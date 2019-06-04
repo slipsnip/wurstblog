@@ -11,6 +11,8 @@ const debug = require('debug')('wurstblog:server')
 const port = process.env.PORT || 3000
 
 const app = express()
+// view paths
+// const viewPaths = ['views', 'views/user'].map(dir => path.join(__dirname, dir))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
