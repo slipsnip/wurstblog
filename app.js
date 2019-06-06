@@ -3,16 +3,18 @@ const express = require('express')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
+const mongoose = require('mongoose')
 require('dotenv').config()
 
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const debug = require('debug')('wurstblog:server')
 const port = process.env.PORT || 3000
-
 const app = express()
-// view paths
-// const viewPaths = ['views', 'views/user'].map(dir => path.join(__dirname, dir))
+
+mongoose.connect(process.env.DB, { useNewUrlParser: true })
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'Mongoose connection to db failed'))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
