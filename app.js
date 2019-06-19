@@ -1,11 +1,14 @@
 const createError = require('http-errors')
 const express = require('express')
+const exphbs = require('express-handlebars')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
+const helpers = require('./helpers/global')
 const mongoose = require('mongoose')
 require('dotenv').config()
 
+const hbs = exphbs.create({ helpers, extname: '.hbs' })
 const indexRouter = require('./routes/index')
 const usersRouter = require('./routes/users')
 const debug = require('debug')('wurstblog:server')
@@ -17,8 +20,14 @@ const db = mongoose.connection
 db.on('error', console.error.bind(console, 'Mongoose connection to db failed'))
 
 // view engine setup
+app.engine('.hbs', hbs.engine)
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')
+app.set('view engine', '.hbs')
+
+// deal with unhandled promise rejections globaly
+// cleaner syntax imho than wraping the contllers / try catching each
+process.on('unhandledRejection', handleUncaughtPromise)
 
 app.use(logger('dev'))
 app.use(express.json())
