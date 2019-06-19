@@ -1,0 +1,22 @@
+<form class="pure-form" method="post">
+    <fieldset>
+        <legend>Add new user</legend>
+        <label for="name">Display Name</label>
+        <input name="name" type="text" id="name" required /><br/>
+        <label for="firstName">First Name</label>
+        <input type="text" name="firstName" id='firstName' required /><br/>
+        <label for="lastName">Last Name</label>
+        <input type="text" name="lastName" id='lastName' required /><br/>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" placeholder="e.g. name@domain.com" required /><br/>
+        <label for="password">Password</label>
+        <input name="password" type="password" required /><br/>
+        <label for="role">Role</label>
+        <select id="role" name="role">
+            {{#each roles}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+        </select required>
+        <button class="pure-button" type="submit" value="submit">Submit</button>
+    </fieldset>
+</form>
