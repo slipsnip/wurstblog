@@ -16,6 +16,12 @@ const port = process.env.PORT || 3000
 const app = express()
 
 mongoose.connect(process.env.DB, { useNewUrlParser: true })
+const mongooseOptions = {
+  useNewUrlParser: true,
+  user: process.env.DB_USER,
+  pass: process.env.DB_PASS
+}
+mongoose.connect(process.env.DB, mongooseOptions)
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'Mongoose connection to db failed'))
 
